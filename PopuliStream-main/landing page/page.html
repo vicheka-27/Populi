@@ -9,6 +9,22 @@
     
 </head>
 <body>
+    <!-- Simple site header -->
+    <header class="site-header" aria-label="Primary">
+        <nav class="nav" aria-label="Main navigation">
+            <a class="brand" href="#" aria-label="Populi Music Player home">
+                <i class="fas fa-music" aria-hidden="true"></i>
+                <span>Populi Music Player</span>
+            </a>
+            <button class="nav-toggle" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle menu">☰</button>
+            <div id="navMenu" class="nav-menu">
+                <a href="#features" class="nav-link">Features</a>
+                <a id="contactLink" href="mailto:hello@populistream.com?subject=Hello%20Populi%20Music%20Player&body=Hi%20team%2C%20I%20would%20like%20to%20get%20in%20touch." class="nav-link">Contact</a>
+                <a href="https://github.com/ziebewon1/PopuliStream" target="_blank" class="nav-link" rel="noopener">GitHub</a>
+                <a href="../music-player-app/index.html" class="btn btn-primary">Start Listening</a>
+            </div>
+        </nav>
+    </header>
     <section class="hero">
         <div class="container">
             <div class="logo">
@@ -26,7 +42,7 @@
         </div>
     </section>
 
-    <section class="features-grid">
+    <section id="features" class="features-grid">
 
         <div class="feature-card">
             <div class="feature-img"><i class="fas fa-heart"></i></div>
@@ -186,6 +202,25 @@
 
             // Close modal on outside click
             window.addEventListener('click', function(e){ if(e.target === modal) closeModal(); });
+
+            // Mobile nav toggle
+            const navToggle = document.querySelector('.nav-toggle');
+            const navMenu = document.getElementById('navMenu');
+            navToggle && navToggle.addEventListener('click', function(){
+                const isOpen = navMenu.classList.toggle('open');
+                navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            });
+
+            // Contact link: try Gmail compose, fallback to mailto
+            const contactLink = document.getElementById('contactLink');
+            contactLink && contactLink.addEventListener('click', function(e){
+                e.preventDefault();
+                const gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=hello@populistream.com&su=Hello%20Populi%20Music%20Player&body=Hi%20team%2C%20I%20would%20like%20to%20get%20in%20touch.';
+                const win = window.open(gmailUrl, '_blank', 'noopener');
+                if(!win){
+                    window.location.href = contactLink.href;
+                }
+            });
         })();
     </script>
 </body>

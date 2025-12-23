@@ -10,6 +10,67 @@
             color: #1a1a1a;
         }
 
+        /* Header */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10,10,10,0.6);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #f5f5f5;
+        }
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #f5f5f5;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+        }
+        .brand .fa-music {
+            color: #F8DE7E;
+            font-size: 20px;
+        }
+        .brand img {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: block;
+        }
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .nav-link {
+            color: #dcdcdc;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 10px;
+            border-radius: 8px;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+        .nav-link:hover { color: #F8DE7E; background: #121212; }
+        .nav-toggle {
+            display: none;
+            background: #121212;
+            color: #f5f5f5;
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 6px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
         .hero {
             background: linear-gradient(180deg, #fcf6ae 0%, #ffffff 100%);
             min-height: 70vh;
@@ -405,6 +466,9 @@
         }
 
         @media (max-width: 768px) {
+            .nav-toggle { display: inline-block; }
+            .nav-menu { display: none; }
+            .nav-menu.open { display: flex; flex-direction: column; gap: 8px; position: absolute; right: 20px; top: 52px; background: #0f0f0f; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 12px; box-shadow: 0 14px 34px rgba(0,0,0,0.6); }
             h1 {
                 font-size: 32px;
             }
