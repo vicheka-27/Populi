@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>PopuliStream - Web Music Player</title>
+    
+</head>
+<body>
+    <section class="hero">
+        <div class="container">
+            <div class="logo">
+                <img src="populistream.png" alt="PopuliStream Logo">
+            </div>
+
+            <h1>Listen Effortlessly.</h1>
+            <p class="subtitle">Stream & Explore millions of tracks <br> From classic hits to nostalgic favorites — all ads-free.</p>
+
+            <div class="buttons">
+                <a href="#" id="tryBtn" class="btn btn-primary">Try PopuliStream</a>
+                <a href="#" id="loginBtn" class="btn btn-secondary">Log in</a>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="features-grid">
+
+        <div class="feature-card">
+            <div class="feature-img"><i class="fas fa-heart"></i></div>
+            <h3>Made for You</h3>
+            <p>Personalized playlists curated just for you — discover mixes tailored to your taste.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-img"><i class="fas fa-radio"></i></div>
+            <h3>Song & Artist Radio</h3>
+            <p>Start a radio from any song or artist to keep the vibe flowing.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-img"><i class="fas fa-shuffle"></i></div>
+            <h3>Smart Shuffle</h3>
+            <p>Smart Shuffle keeps your playlists fresh with tracks you'll love.</p>
+        </div>
+        
+    </section>
+
+    
+
+    <section class="final-cta">
+        <h2>Try the PopuliStream Web Player now!</h2>
+        <p>Thousands of listeners tune in to PopuliStream daily. </p>
+        <a href="https://open.spotify.com/" class="btn btn-primary">Open the PopuliStream Web Player</a>
+    </section>
+
+    <!-- Moved footer: sits below the Open Player button -->
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div class="footer-left">
+                <h2>Connect with Us</h2>
+                <p class="small">Follow PopuliStream for updates, playlists, and community events.</p>
+                <div class="extra-info">
+                    <p>Email: <a href="mailto:hello@populistream.com">hello@populistream.com</a></p>
+                    <p>Location: Worldwide · Available on web</p>
+                    <p>© 2025 PopuliStream</p>
+                </div>
+            </div>
+
+            <div class="footer-right">
+                <h3>Follow</h3>
+                <div class="social-links">
+                    <a href="https://x.com/PopuliStream" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i> Twitter</a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i> Instagram</a>
+                    <a href="https://www.facebook.com/share/1DyRFqtVQS/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i> Facebook</a>
+                    <a href="https://github.com/ziebewon1/PopuliStream" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i> GitHub</a>
+                </div>
+
+                <div class="footer-links">
+                    <a href="#">Privacy</a>
+                    <span>·</span>
+                    <a href="#">Terms</a>
+                    <span>·</span>
+                    <a href="#">Help</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auth modal (create account / login) -->
+    <div id="authModal" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+            <button class="modal-close" id="closeAuth">✕</button>
+            <h2 id="authTitle">Account</h2>
+            <div class="auth-tabs">
+                <button id="tabSign" class="tab active">Create Account</button>
+                <button id="tabLogin" class="tab">Log in</button>
+            </div>
+
+            <form id="authForm">
+                <div class="form-row">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" required />
+                </div>
+                <div class="form-row">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" required minlength="6" />
+                </div>
+
+                <div class="form-row" id="nameRow">
+                    <label for="name">Display Name</label>
+                    <input id="name" type="text" placeholder="Your name (optional)" />
+                </div>
+
+                <div class="form-row">
+                    <button id="authSubmit" class="btn btn-primary" type="submit">Create Account</button>
+                </div>
+
+                <div id="authMessage" class="small" style="margin-top:8px;color:#F8DE7E;"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Simple client-side auth using localStorage (demo only)
+        (function(){
+            const tryBtn = document.getElementById('tryBtn');
+            const loginBtn = document.getElementById('loginBtn');
+            const modal = document.getElementById('authModal');
+            const closeAuth = document.getElementById('closeAuth');
+            const tabSign = document.getElementById('tabSign');
+            const tabLogin = document.getElementById('tabLogin');
+            const authForm = document.getElementById('authForm');
+            const authSubmit = document.getElementById('authSubmit');
+            const authMessage = document.getElementById('authMessage');
+            const nameRow = document.getElementById('nameRow');
+
+            function openModal(mode){
+                modal.style.display = 'flex';
+                modal.setAttribute('aria-hidden','false');
+                    if(mode === 'signup'){
+                        tabSign.classList.add('active'); tabLogin.classList.remove('active');
+                        authSubmit.textContent = 'Create Account'; nameRow.style.display='block';
+                    } else {
+                        tabLogin.classList.add('active'); tabSign.classList.remove('active');
+                        authSubmit.textContent = 'Log in'; nameRow.style.display='none';
+                    }
+                authMessage.textContent='';
+            }
+
+                function closeModal(){ modal.style.display='none'; modal.setAttribute('aria-hidden','true'); }
+
+            tryBtn && tryBtn.addEventListener('click', function(e){ e.preventDefault(); openModal('signup'); });
+            loginBtn && loginBtn.addEventListener('click', function(e){ e.preventDefault(); openModal('login'); });
+            closeAuth && closeAuth.addEventListener('click', closeModal);
+            tabSign.addEventListener('click', ()=> openModal('signup'));
+            tabLogin.addEventListener('click', ()=> openModal('login'));
+
+            function getUsers(){ try{ return JSON.parse(localStorage.getItem('pop_users')||'{}'); }catch(e){ return {}; } }
+            function saveUsers(u){ localStorage.setItem('pop_users', JSON.stringify(u)); }
+
+            authForm.addEventListener('submit', function(e){
+                e.preventDefault();
+                const email = document.getElementById('email').value.trim().toLowerCase();
+                const password = document.getElementById('password').value;
+                const name = document.getElementById('name').value.trim();
+                const isSignup = tabSign.classList.contains('active');
+                const users = getUsers();
+
+                if(isSignup){
+                    if(!email || !password){ authMessage.textContent='Please provide email and password.'; return; }
+                    if(users[email]){ authMessage.textContent='An account with this email already exists.'; return; }
+                    users[email] = { password: password, name: name || '', created: Date.now() };
+                    saveUsers(users);
+                    authMessage.textContent = 'Account created — logged in.';
+                    localStorage.setItem('pop_current', email);
+                    setTimeout(() => { window.location.href = '../music-player-app/index.html'; }, 900);
+                } else {
+                    if(!users[email] || users[email].password !== password){ authMessage.textContent='Invalid email or password.'; return; }
+                    authMessage.textContent='Logged in successfully.';
+                    localStorage.setItem('pop_current', email);
+                    setTimeout(() => { window.location.href = '../music-player-app/index.html'; }, 600);
+                }
+            });
+
+            // Close modal on outside click
+            window.addEventListener('click', function(e){ if(e.target === modal) closeModal(); });
+        })();
+    </script>
+</body>
+</html>
