@@ -1141,3 +1141,37 @@ body {
 .folder-grid::-webkit-scrollbar-thumb:hover {
     background: rgba(248, 222, 126, 0.8);
 }
+
+/* Accessible focus styles: replace default thin outline with themed ring */
+button:focus,
+.control-btn:focus,
+.action-btn:focus,
+.menu-item:focus,
+.playlist-item:focus,
+#logout-btn:focus,
+.folder-btn:focus,
+.add-folder-btn:focus,
+.delete-playlist-btn:focus,
+.add-btn:focus,
+.playlist-options button:focus,
+.folder-toggle:focus,
+input[type="range"]:focus {
+    outline: none;
+}
+
+button:focus-visible,
+.control-btn:focus-visible,
+.action-btn:focus-visible,
+.menu-item:focus-visible,
+.playlist-item:focus-visible,
+#logout-btn:focus-visible,
+.folder-btn:focus-visible,
+.add-folder-btn:focus-visible,
+.delete-playlist-btn:focus-visible,
+.add-btn:focus-visible,
+.playlist-options button:focus-visible,
+.folder-toggle:focus-visible,
+input[type="range"]:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(248, 222, 126, 0.85);
+}
