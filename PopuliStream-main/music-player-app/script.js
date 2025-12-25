@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
         { title: "All My Poetry", artist: "CLOSE YOUR EYES", src: "../songs/CYE-All My Poetry.mp3", cover: "../songs/CYE- All my poetry.jpg", duration: "3:35" },
         { title: "Hypnosis", artist: "IVE", src: "../songs/IVE-Hypnosis.mp3", cover: "../songs/Ive-hypnosis.png", duration: "2:26" },
         { title: "Light A Flame", artist: "SEVENTEEN", src: "../songs/seventeen light a flame.mp3", cover: "../songs/seventeen light a flame.png", duration: "3:09" },
+        { title: "Ruler of My Heart", artist: "ALIEN STAGE", src: "../songs/rulerofmyheart-alienstage.mp3", cover: "../songs/rulerofmyheart-alienstage.jpg", duration: "2:53" },
     ];
     
     // Player state
