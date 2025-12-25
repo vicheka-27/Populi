@@ -624,7 +624,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const songIds = folders[folderName] || [];
             if (songIds.length === 0) {
                 const empty = document.createElement('p');
-                empty.style.color = 'var(--text-color)';
+                empty.style.color = '#ccc';
                 empty.textContent = 'No songs in this folder';
                 grid.appendChild(empty);
             } else {
@@ -638,11 +638,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     const card = document.createElement('div');
                     card.className = 'song-card';
-                    card.innerHTML = `
-                        <img src="${song.cover}" alt="${song.title}" onerror="this.src='https://source.unsplash.com/random/150x150/?music'">
-                        <h4>${song.title}</h4>
-                        <p>${song.artist}</p>
-                    `;
+                    const img = document.createElement('img');
+                    img.src = song.cover;
+                    img.alt = song.title;
+                    img.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22150%22%3E%3Crect fill=%22%23333%22 width=%22150%22 height=%22150%22/%3E%3C/svg%3E'; };
+                    const h4 = document.createElement('h4');
+                    h4.textContent = song.title;
+                    const p = document.createElement('p');
+                    p.textContent = song.artist;
+                    card.appendChild(img);
+                    card.appendChild(h4);
+                    card.appendChild(p);
                     card.addEventListener('click', () => {
                         const idx = songs.findIndex(s => s.title === song.title && s.artist === song.artist);
                         if (idx > -1) {
@@ -731,28 +737,43 @@ document.addEventListener('DOMContentLoaded', function() {
             );
             
             if (filtered.length === 0) {
-                songsContainer.innerHTML = '<p style="color: var(--text-color); text-align: center; padding: 20px;">No songs available</p>';
+                songsContainer.innerHTML = '<p style="color: #ccc; text-align: center; padding: 20px;">No songs available</p>';
                 return;
             }
             
             filtered.forEach(song => {
                 const item = document.createElement('div');
                 item.className = 'modal-song-item';
-                item.innerHTML = `
-                    <div class="modal-song-info">
-                        <img src="${song.cover}" alt="${song.title}" onerror="this.src='https://source.unsplash.com/random/100x100/?music'" style="width: 50px; height: 50px; border-radius: 4px; margin-right: 10px;">
-                        <div>
-                            <h4>${song.title}</h4>
-                            <p>${song.artist}</p>
-                        </div>
-                    </div>
-                    <button class="add-btn">Add</button>
-                `;
+                const img = document.createElement('img');
+                img.src = song.cover;
+                img.alt = song.title;
+                img.style.width = '50px';
+                img.style.height = '50px';
+                img.style.borderRadius = '4px';
+                img.style.marginRight = '10px';
+                img.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2250%22 height=%2250%22%3E%3Crect fill=%22%23333%22 width=%2250%22 height=%2250%22/%3E%3C/svg%3E'; };
+                const infoDiv = document.createElement('div');
+                infoDiv.className = 'modal-song-info';
+                const h4 = document.createElement('h4');
+                h4.textContent = song.title;
+                const p = document.createElement('p');
+                p.textContent = song.artist;
+                const innerDiv = document.createElement('div');
+                innerDiv.appendChild(h4);
+                innerDiv.appendChild(p);
+                infoDiv.appendChild(img);
+                infoDiv.appendChild(innerDiv);
+                const addBtn = document.createElement('button');
+                addBtn.className = 'add-btn';
+                addBtn.textContent = 'Add';
+                item.appendChild(infoDiv);
+                item.appendChild(addBtn);
                 
-                item.querySelector('.add-btn').addEventListener('click', () => {
+                addBtn.addEventListener('click', () => {
                     folders[folderName].push(song.title + '|' + song.artist);
                     localStorage.setItem('pop_discover_folders', JSON.stringify(folders));
-                    availableSongs.splice(availableSongs.indexOf(song), 1);
+                    const idx = availableSongs.indexOf(song);
+                    if (idx > -1) availableSongs.splice(idx, 1);
                     renderSongs(searchInput.value);
                 });
                 
@@ -785,7 +806,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const favorites = JSON.parse(localStorage.getItem('pop_favorites') || '[]');
         container.innerHTML = '';
         if (favorites.length === 0) {
-            container.innerHTML = '<p style="color: var(--text-color);">No favorites yet.</p>';
+            container.innerHTML = '<p style="color: #ccc; margin: 20px;">No favorites yet.</p>';
             return;
         }
         const grid = document.createElement('div');
@@ -793,11 +814,17 @@ document.addEventListener('DOMContentLoaded', function() {
         favorites.forEach((song) => {
             const card = document.createElement('div');
             card.className = 'song-card';
-            card.innerHTML = `
-                <img src="${song.cover}" alt="${song.title}" onerror="this.src='https://source.unsplash.com/random/150x150/?music'">
-                <h4>${song.title}</h4>
-                <p>${song.artist}</p>
-            `;
+            const img = document.createElement('img');
+            img.src = song.cover;
+            img.alt = song.title;
+            img.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22150%22%3E%3Crect fill=%22%23333%22 width=%22150%22 height=%22150%22/%3E%3C/svg%3E'; };
+            const h4 = document.createElement('h4');
+            h4.textContent = song.title;
+            const p = document.createElement('p');
+            p.textContent = song.artist;
+            card.appendChild(img);
+            card.appendChild(h4);
+            card.appendChild(p);
             card.addEventListener('click', () => {
                 const idx = songs.findIndex(s => s.title === song.title && s.artist === song.artist);
                 if (idx > -1) {
@@ -817,7 +844,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const recent = JSON.parse(localStorage.getItem('pop_recent') || '[]');
         container.innerHTML = '';
         if (recent.length === 0) {
-            container.innerHTML = '<p style="color: var(--text-color);">No recently played songs.</p>';
+            container.innerHTML = '<p style="color: #ccc; margin: 20px;">No recently played songs.</p>';
             return;
         }
         const grid = document.createElement('div');
@@ -827,11 +854,17 @@ document.addEventListener('DOMContentLoaded', function() {
             cardWrapper.className = 'song-card-wrapper';
             const card = document.createElement('div');
             card.className = 'song-card';
-            card.innerHTML = `
-                <img src="${song.cover}" alt="${song.title}" onerror="this.src='https://source.unsplash.com/random/150x150/?music'">
-                <h4>${song.title}</h4>
-                <p>${song.artist}</p>
-            `;
+            const img = document.createElement('img');
+            img.src = song.cover;
+            img.alt = song.title;
+            img.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22150%22%3E%3Crect fill=%22%23333%22 width=%22150%22 height=%22150%22/%3E%3C/svg%3E'; };
+            const h4 = document.createElement('h4');
+            h4.textContent = song.title;
+            const p = document.createElement('p');
+            p.textContent = song.artist;
+            card.appendChild(img);
+            card.appendChild(h4);
+            card.appendChild(p);
             card.addEventListener('click', () => {
                 const songIdx = songs.findIndex(s => s.title === song.title && s.artist === song.artist);
                 if (songIdx > -1) {
@@ -866,7 +899,7 @@ document.addEventListener('DOMContentLoaded', function() {
         container.innerHTML = '';
         
         if (Object.keys(playlists).length === 0) {
-            container.innerHTML = '<p style="color: var(--text-color);">No playlists yet. Create one from the music player.</p>';
+            container.innerHTML = '<p style="color: #ccc; margin: 20px;">No playlists yet. Create one from the music player.</p>';
             return;
         }
         
@@ -900,18 +933,23 @@ document.addEventListener('DOMContentLoaded', function() {
             grid.className = 'song-grid';
             
             if (list.length === 0) {
-                grid.innerHTML = '<p style="color: var(--text-color);">No songs in this playlist</p>';
+                grid.innerHTML = '<p style="color: #ccc; margin: 20px;">No songs in this playlist</p>';
             } else {
                 list.forEach((song, songIdx) => {
                     const cardWrapper = document.createElement('div');
                     cardWrapper.className = 'song-card-wrapper';
                     const card = document.createElement('div');
                     card.className = 'song-card';
-                    card.innerHTML = `
-                        <img src="${song.cover}" onerror="this.src='https://source.unsplash.com/random/150x150/?music'">
-                        <h4>${song.title}</h4>
-                        <p>${song.artist}</p>
-                    `;
+                    const img = document.createElement('img');
+                    img.src = song.cover;
+                    img.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22150%22%3E%3Crect fill=%22%23333%22 width=%22150%22 height=%22150%22/%3E%3C/svg%3E'; };
+                    const h4 = document.createElement('h4');
+                    h4.textContent = song.title;
+                    const p = document.createElement('p');
+                    p.textContent = song.artist;
+                    card.appendChild(img);
+                    card.appendChild(h4);
+                    card.appendChild(p);
                     card.addEventListener('click', () => {
                         const idx = songs.findIndex(s => s.title === song.title && s.artist === song.artist);
                         if (idx > -1) {
@@ -975,11 +1013,17 @@ document.addEventListener('DOMContentLoaded', function() {
             list.forEach((song) => {
                 const card = document.createElement('div');
                 card.className = 'song-card';
-                card.innerHTML = `
-                    <img src="${song.cover}" alt="${song.title}" onerror="this.src='https://source.unsplash.com/random/150x150/?music'">
-                    <h4>${song.title}</h4>
-                    <p>${song.artist}</p>
-                `;
+                const img = document.createElement('img');
+                img.src = song.cover;
+                img.alt = song.title;
+                img.onerror = function() { this.src = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22150%22%3E%3Crect fill=%22%23333%22 width=%22150%22 height=%22150%22/%3E%3C/svg%3E'; };
+                const h4 = document.createElement('h4');
+                h4.textContent = song.title;
+                const p = document.createElement('p');
+                p.textContent = song.artist;
+                card.appendChild(img);
+                card.appendChild(h4);
+                card.appendChild(p);
                 card.addEventListener('click', () => {
                     // find song in originalQueue and play it (disable shuffle for predictable mapping)
                     const idx = originalQueue.findIndex(s => s.title === song.title && s.artist === song.artist);

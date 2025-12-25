@@ -9,7 +9,7 @@
     
 </head>
 <body>
-    <!-- Simple site header -->
+    <!-- header -->
     <header class="site-header" aria-label="Primary">
         <nav class="nav" aria-label="Main navigation">
             <a class="brand" href="#" aria-label="Populi Music Player home">
@@ -71,7 +71,7 @@
         <a href="#" id="openWebPlayer" class="btn btn-primary">Open the PopuliStream Web Player</a>
     </section>
 
-    <!-- Moved footer: sits below the Open Player button -->
+    <!-- footer -->
     <footer class="site-footer">
         <div class="container footer-grid">
             <div class="footer-left">
@@ -104,7 +104,7 @@
         </div>
     </footer>
 
-    <!-- Auth modal (create account / login) -->
+    <!-- modal for (create acc / login) -->
     <div id="authModal" class="modal" aria-hidden="true">
         <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="authTitle">
             <button class="modal-close" id="closeAuth">✕</button>
@@ -139,7 +139,7 @@
     </div>
 
     <script>
-        // Simple client-side auth using localStorage (demo only)
+        // Clinet side local storage
         (function(){
             const tryBtn = document.getElementById('tryBtn');
             const loginBtn = document.getElementById('loginBtn');
@@ -213,7 +213,7 @@
                 navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
             });
 
-            // Contact link: try Gmail compose, fallback to mailto
+            // Contact Gmail
             const contactLink = document.getElementById('contactLink');
             contactLink && contactLink.addEventListener('click', function(e){
                 e.preventDefault();
