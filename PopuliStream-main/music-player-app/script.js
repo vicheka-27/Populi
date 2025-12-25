@@ -998,9 +998,4 @@ document.addEventListener('DOMContentLoaded', function() {
             container.appendChild(grid);
         });
     }
-    
-    // Add animation to album art on load
-    albumArt.addEventListener('load', function() {
-        this.style.opacity = 1;
-    });
 });
