@@ -21,7 +21,7 @@
                 <a href="#features" class="nav-link">Features</a>
                 <a id="contactLink" href="mailto:hello@populistream.com?subject=Hello%20Populi%20Music%20Player&body=Hi%20team%2C%20I%20would%20like%20to%20get%20in%20touch." class="nav-link">Contact</a>
                 <a href="https://github.com/ziebewon1/PopuliStream" target="_blank" class="nav-link" rel="noopener">GitHub</a>
-                <a href="../music-player-app/index.html" class="btn btn-primary">Start Listening</a>
+                <a href="#" id="startListeningNav" class="btn btn-primary">Start Listening</a>
             </div>
         </nav>
     </header>
@@ -68,7 +68,7 @@
     <section class="final-cta">
         <h2>Try the PopuliStream Web Player now!</h2>
         <p>Thousands of listeners tune in to PopuliStream daily. </p>
-        <a href="../music-player-app/index.html" class="btn btn-primary">Open the PopuliStream Web Player</a>
+        <a href="#" id="openWebPlayer" class="btn btn-primary">Open the PopuliStream Web Player</a>
     </section>
 
     <!-- Moved footer: sits below the Open Player button -->
@@ -167,8 +167,10 @@
 
                 function closeModal(){ modal.style.display='none'; modal.setAttribute('aria-hidden','true'); }
 
-            tryBtn && tryBtn.addEventListener('click', function(e){ e.preventDefault(); openModal('signup'); });
+            tryBtn && tryBtn.addEventListener('click', function(e){ e.preventDefault(); openModal('login'); });
             loginBtn && loginBtn.addEventListener('click', function(e){ e.preventDefault(); openModal('login'); });
+            document.getElementById('startListeningNav') && document.getElementById('startListeningNav').addEventListener('click', function(e){ e.preventDefault(); openModal('login'); });
+            document.getElementById('openWebPlayer') && document.getElementById('openWebPlayer').addEventListener('click', function(e){ e.preventDefault(); openModal('login'); });
             closeAuth && closeAuth.addEventListener('click', closeModal);
             tabSign.addEventListener('click', ()=> openModal('signup'));
             tabLogin.addEventListener('click', ()=> openModal('login'));
